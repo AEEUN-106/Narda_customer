@@ -78,25 +78,31 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
         child: Scaffold(
           key: scaffoldKey,
-          appBar: AppBar(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(45.0),
+            child: AppBar(
+              centerTitle: true,
+              backgroundColor: Color(0xff4B60F6),
+
               automaticallyImplyLeading: false,
               title: const Text(
                 'NARDA',
               ),
               actions: [
-          IconButton(
-          icon: Icon(Icons.shopping_cart),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                  OrderHistoryScreen(customerNum: '01011112222')),
-            );
-          },)
-          ],
-          centerTitle: false,
-          elevation: 2,
-        ),
+                IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>
+                          OrderHistoryScreen(customerNum: '01011112222')),
+                    );
+                  },)
+              ],
+              elevation: 1.0,
+            ),
+          ),
+
         body: GridView.builder(
           itemCount: stores!.length, //item 개수
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

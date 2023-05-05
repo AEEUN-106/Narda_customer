@@ -75,19 +75,22 @@ class _OrderHistoryDetailScreenState extends State<OrderHistoryDetailScreen> {
 
     return GestureDetector(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(
-            "주문내역",
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              color: Colors.white,
-              fontSize: 22,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(45.0),
+          child: AppBar(
+            backgroundColor: Color(0xff4B60F6),
+            title: Text(
+              "주문내역",
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.white,
+                fontSize: 18,
+              ),
             ),
+            actions: [],
+            centerTitle: true,
+            elevation: 2,
           ),
-          actions: [],
-          centerTitle: false,
-          elevation: 2,
         ),
         body: SafeArea(
           child: Column(
@@ -127,16 +130,20 @@ class _OrderHistoryDetailScreenState extends State<OrderHistoryDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(order!.storeName, style: TextStyle(fontSize: 20)),
+                      Text(order!.storeName, style: TextStyle(fontSize: 18)),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 5),
                             Text(order!.orderInfo),
                             SizedBox(height: 5),
-                            Text(order!.storePhoneNum.substring(0,3) + '-' + order!.storePhoneNum.substring(3,6) + '-' + order!.storePhoneNum.substring(6)),
+                            Text(order!.storePhoneNum.substring(0, 3) +
+                                '-' +
+                                order!.storePhoneNum.substring(3, 6) +
+                                '-' +
+                                order!.storePhoneNum.substring(6)),
                             SizedBox(height: 5),
                           ],
                         ),
@@ -154,16 +161,20 @@ class _OrderHistoryDetailScreenState extends State<OrderHistoryDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text('배달정보', style: TextStyle(fontSize: 20)),
+                      Text('배달정보', style: TextStyle(fontSize: 18)),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 5),
                             Text(order!.deliveryLocation),
                             SizedBox(height: 5),
-                            Text(order!.customerNum.substring(0,3) + '-' + order!.customerNum.substring(3,7) + '-' + order!.customerNum.substring(7)),
+                            Text(order!.customerNum.substring(0, 3) +
+                                '-' +
+                                order!.customerNum.substring(3, 7) +
+                                '-' +
+                                order!.customerNum.substring(7)),
                             SizedBox(height: 5),
                           ],
                         ),
@@ -181,9 +192,9 @@ class _OrderHistoryDetailScreenState extends State<OrderHistoryDetailScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        Text('요청사항', style: TextStyle(fontSize: 20)),
+                        Text('요청사항', style: TextStyle(fontSize: 18)),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -206,9 +217,9 @@ class _OrderHistoryDetailScreenState extends State<OrderHistoryDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text('결제수단', style: TextStyle(fontSize: 20)),
+                      Text('결제수단', style: TextStyle(fontSize: 18)),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -232,9 +243,9 @@ class _OrderHistoryDetailScreenState extends State<OrderHistoryDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text('결제금액', style: TextStyle(fontSize: 20)),
+                      Text('결제금액', style: TextStyle(fontSize: 18)),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

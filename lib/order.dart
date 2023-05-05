@@ -81,20 +81,24 @@ class _OrderScreenState extends State<OrderScreen> {
 
     return GestureDetector(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(
-            widget.storeName,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              color: Colors.white,
-              fontSize: 22,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(45.0),
+          child: AppBar(
+            backgroundColor: Color(0xff4B60F6),
+            title: Text(
+              widget.storeName,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.white,
+                fontSize: 18,
+              ),
             ),
+            actions: [],
+            centerTitle: true,
+            elevation: 2,
           ),
-          actions: [],
-          centerTitle: false,
-          elevation: 2,
         ),
+
         body: SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -218,8 +222,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       ),
                       SizedBox(height: 15),
                       Text(
-                        widget.price.toString(),
-
+                        widget.price.toString() + '원',
                       ),
                     ],
                   ),

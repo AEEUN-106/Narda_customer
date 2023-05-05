@@ -55,12 +55,6 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var navigationTextStyle =
-    TextStyle(color: CupertinoColors.white, fontFamily: 'GyeonggiMedium');
-
-    var _navigationBar = CupertinoNavigationBar(
-        middle: Text("주문 내역"),
-        backgroundColor: CupertinoColors.systemBlue);
 
     var _listView = ListView.separated(
       // padding: const EdgeInsets.all(3),
@@ -96,16 +90,32 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
       },
     );
 
-    return CupertinoPageScaffold(
-      navigationBar: _navigationBar,
-      child: Scaffold(
-        body: Column(children: <Widget>[
-          const SizedBox(
-            height: 10,
+    return GestureDetector(
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(45.0),
+            child: AppBar(
+              backgroundColor: Color(0xff4B60F6),
+              title: Text(
+                "주문내역",
+                style: const TextStyle(
+                  // fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
+              ),
+              actions: [],
+              centerTitle: true,
+              elevation: 2,
+            ),
           ),
-          Expanded(child: _listView),
-        ]),
-      ),
+          body: Column(children: <Widget>[
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(child: _listView),
+          ]),
+        )
     );
   }
 }
