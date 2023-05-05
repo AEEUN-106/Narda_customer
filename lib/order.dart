@@ -23,6 +23,9 @@ class _OrderScreenState extends State<OrderScreen> {
   String? dropdownValue = "선결제";
   String foodStr = "";
 
+  final TextEditingController _addrController = TextEditingController(); //입력되는 값을 제어
+  final TextEditingController _requestController = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -36,7 +39,7 @@ class _OrderScreenState extends State<OrderScreen> {
     super.initState();
   }
 
-  newOrder(double deliveryDistance, int deliveryFee, String deliveryLocation, String deliveryRequest, String storeId, int payment, String orderInfo, String customerNum) async {
+  newOrder(double deliveryDistance, int deliveryFee, String deliveryLocation, String deliveryRequest, String storeId, int payment, String orderInfo, int orderValue, String customerNum) async {
     try {
       print("post 실행");
       var response = await http.post(
@@ -49,6 +52,7 @@ class _OrderScreenState extends State<OrderScreen> {
             'storeId' : storeId.toString(),
             'payment' : payment.toString(),
             'orderInfo' : orderInfo,
+            'orderValue' : orderValue.toString(),
             'customerNum' : customerNum
           });
 
@@ -132,6 +136,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         '배달지', style: TextStyle(fontSize: 20)
                       ),
                       TextFormField(
+                        controller: _addrController,
                         obscureText: false,
                         decoration: const InputDecoration(
                           hintText: '[배달 주소를 적어주세요.]',
@@ -156,7 +161,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     children: [
                       Text('요청사항', style: TextStyle(fontSize: 20)),
                       TextFormField(
-                        // controller: _model.textController2,
+                        controller: _requestController,
                         obscureText: false,
                         decoration: const InputDecoration(
                           hintText: '요청 사항을 적어주세요.',
@@ -191,16 +196,6 @@ class _OrderScreenState extends State<OrderScreen> {
                           ).toList(),
                           onChanged: (String? value) {
                             dropdownValue = value!;
-
-                            if(dropdownValue == "선결제"){
-
-                            }
-                            else if(dropdownValue == "카드결제"){
-
-                            }
-                            else{
-
-                            }
                             setState(() {});
                           },
                         ),
@@ -240,7 +235,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 } else {
                   paymentMethod = 0;
                 }
-                newOrder(3.4, 3000, '대구 북구 경진로31 101동 301호', '없음', widget.storeId, paymentMethod, foodStr, '01011112222');
+                newOrder(3.4, 3000, _addrController.text.trim(), _requestController.text.trim(), widget.storeId, paymentMethod, foodStr, widget.price, '01011112222');
                 Navigator.pop(context);
                 Navigator.pop(context);
               }, child: Text("주문하기")),

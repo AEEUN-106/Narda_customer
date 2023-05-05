@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:narda_customer/model/store.dart';
+import 'package:narda_customer/order_history.dart';
 import 'api/api.dart';
 import 'store_detail.dart';
 
@@ -76,139 +77,71 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
         child: Scaffold(
-            key: scaffoldKey,
-            appBar: AppBar(
+          key: scaffoldKey,
+          appBar: AppBar(
               automaticallyImplyLeading: false,
               title: const Text(
-                'Narda',
+                'NARDA',
               ),
-              actions: [],
-              centerTitle: false,
-              elevation: 2,
-            ),
-            body: GridView.builder(
-              itemCount: stores!.length, //item 개수
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, //1 개의 행에 보여줄 item 개수
-                childAspectRatio: 4 / 5, //item 의 가로 1, 세로 2 의 비율
-                mainAxisSpacing: 10, //수평 Padding
-                crossAxisSpacing: 10, //수직 Padding
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                //item 의 반목문 항목 형성
-                return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>  StoreDetailScreen(storeId: stores[index].storeId, storeName: stores[index].storeName,)),
-                      );
-                    },
-                    child: Container(
-                      color: Colors.white,
-                      margin: const EdgeInsets.all(8.0),
-                      width: 100,
-                      height: 100,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                stores[index].storeId,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
+              actions: [
+          IconButton(
+          icon: Icon(Icons.shopping_cart),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>
+                  OrderHistoryScreen(customerNum: '01011112222')),
+            );
+          },)
+          ],
+          centerTitle: false,
+          elevation: 2,
+        ),
+        body: GridView.builder(
+          itemCount: stores!.length, //item 개수
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, //1 개의 행에 보여줄 item 개수
+            childAspectRatio: 4 / 5, //item 의 가로 1, 세로 2 의 비율
+            mainAxisSpacing: 10, //수평 Padding
+            crossAxisSpacing: 10, //수직 Padding
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            //item 의 반목문 항목 형성
+            return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>
+                        StoreDetailScreen(storeId: stores[index].storeId,
+                          storeName: stores[index].storeName,)),
+                  );
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(8.0),
+                  width: 100,
+                  height: 100,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                              image: AssetImage('asset/images/${stores[index].storeId}.jpeg'),
+                              fit: BoxFit.fill,
+                            )
                           ),
-                          Text(stores[index].storeName),
-                          // Image.asset(
-                          //   stores![index].storeName,
-                          // ),
-                        ],
+                        ),
                       ),
-                    ));
-              },
-            )));
+                      SizedBox(height: 5,),
+                      Text(stores[index].storeName),
+                      // Image.asset(
+                      //   stores![index].storeName,
+                      // ),
+                    ],
+                  ),
+                ));
+          },
+        )));
   }
 }
-
-// return Container(
-//     margin: const EdgeInsets.all(8.0),
-//   width: 100,
-//   height: 100,
-//   child: Column(
-//     children: [
-//       Expanded(
-//         child: Container(
-//           alignment: Alignment.center,
-//           child: Text(
-//             stores[index].storeId,
-//             style: TextStyle(
-//               fontSize: 20,
-//             ),
-//           ),
-//         ),
-//       ),
-//       Text(stores[index].storeName),
-//       // Image.asset(
-//       //   stores![index].storeName,
-//       // ),
-//     ],
-//   ),
-
-//     );
-//   },
-// ),
-// body: SafeArea(
-//   child: Column(
-//     mainAxisSize: MainAxisSize.max,
-//     children: [
-//       Expanded(
-//         child: GridView(
-//           padding: EdgeInsets.zero,
-//           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//             crossAxisCount: 2,
-//             crossAxisSpacing: 10,
-//             mainAxisSpacing: 10,
-//             childAspectRatio: 1,
-//           ),
-//           scrollDirection: Axis.vertical,
-//           children: [
-//             Container(
-//               width: 100,
-//               height: 100,
-//               decoration: BoxDecoration(
-//               ),
-//               child: Column(
-//                 mainAxisSize: MainAxisSize.max,
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   Column(
-//                     mainAxisSize: MainAxisSize.max,
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       Image.network(
-//                         'https://picsum.photos/seed/869/600',
-//                         width: 100,
-//                         height: 100,
-//                         fit: BoxFit.cover,
-//                       ),
-//                       Text(
-//                         'Hello World',
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     ],
-//   ),
-// ),
-//       ),
-//     );
-//   }
-// }
