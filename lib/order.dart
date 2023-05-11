@@ -11,7 +11,7 @@ class OrderScreen extends StatefulWidget {
   const OrderScreen({Key? key, required this.storeName, required this.foods, required this.price, required this.storeId}) : super(key: key);
   final String storeName;
   final String storeId;
-  final List<Map<String, dynamic>> foods;
+  final String foods;
   final int price;
   @override
   State<OrderScreen> createState() => _OrderScreenState();
@@ -21,7 +21,6 @@ class _OrderScreenState extends State<OrderScreen> {
 
   List<String> list = ["선결제", "카드결제", "현금결제"];
   String? dropdownValue = "선결제";
-  String foodStr = "";
 
   final TextEditingController _addrController = TextEditingController(); //입력되는 값을 제어
   final TextEditingController _requestController = TextEditingController();
@@ -29,12 +28,6 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    widget.foods.forEach((element) {
-      if(element["주문량"] > 0) {
-        foodStr += '${element["음식이름"]} ${element["주문량"]}개, ';
-      }}
-    );
-    foodStr = foodStr.substring(0, foodStr.length-2);
 
     super.initState();
   }
@@ -118,7 +111,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       ),
                       SizedBox(height: 15),
                       Text(
-                        foodStr,
+                        widget.foods,
                       ),
                       SizedBox(height: 15),
                     ],
@@ -238,7 +231,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 } else {
                   paymentMethod = 0;
                 }
-                newOrder(3.4, 3000, _addrController.text.trim(), _requestController.text.trim(), widget.storeId, paymentMethod, foodStr, widget.price, '01011112222');
+                newOrder(3.4, 3000, _addrController.text.trim(), _requestController.text.trim(), widget.storeId, paymentMethod, widget.foods, widget.price, '01011112222');
                 Navigator.pop(context);
                 Navigator.pop(context);
               }, child: Text("주문하기")),
