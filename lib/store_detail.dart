@@ -13,9 +13,10 @@ import 'order.dart';
 List<Map<String, dynamic>> menus = [];
 
 class StoreDetailScreen extends StatefulWidget {
-  const StoreDetailScreen({Key? key, required this.storeId, required this.storeName}) : super(key: key);
+  const StoreDetailScreen({Key? key, required this.storeId, required this.storeName, required this.storeLocation}) : super(key: key);
   final String storeId;
   final String storeName;
+  final String storeLocation;
   @override
   State<StoreDetailScreen> createState() => _StoreDetailScreenState();
 }
@@ -169,7 +170,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
 
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  OrderScreen(storeName: widget.storeName, storeId: widget.storeId, foods: foodStr, price: totalPrice as int,)),
+                MaterialPageRoute(builder: (context) =>  OrderScreen(storeName: widget.storeName, storeId: widget.storeId, foods: foodStr, price: totalPrice as int, storeLocation: widget.storeLocation,)),
               );
             }, child: Text("주문하기")),
           ]),

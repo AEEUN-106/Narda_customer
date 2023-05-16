@@ -7,4 +7,5 @@ class API{
   static const orderHistory = "$hostConnect/orderHistory.php";
   static const orderDetail = "$hostConnect/orderDetail.php";
   static const menuList = "$hostConnect/menuList.php";
+  static const storePosition = "$hostConnect/getStorePos.php";
 }

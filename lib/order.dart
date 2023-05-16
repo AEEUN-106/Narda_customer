@@ -3,16 +3,19 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:geocoding/geocoding.dart' as geo;
+import 'package:latlong2/latlong.dart';
 import 'api/api.dart';
 
 
 class OrderScreen extends StatefulWidget {
-  const OrderScreen({Key? key, required this.storeName, required this.foods, required this.price, required this.storeId}) : super(key: key);
+  const OrderScreen({Key? key, required this.storeName, required this.foods, required this.price, required this.storeId, required this.storeLocation}) : super(key: key);
   final String storeName;
   final String storeId;
+  final String storeLocation;
   final String foods;
   final int price;
+
   @override
   State<OrderScreen> createState() => _OrderScreenState();
 }
@@ -71,6 +74,13 @@ class _OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double latitude_destination = 37.58886;
+    double longitude_destination = 26.3546;
+
+    double latitude_origin = 37.58886;
+    double longitude_origin = 26.3546;
+
+    String REST_API_KEY ="eadc10ffba8f652a200505f28c3cf92d";
 
     return GestureDetector(
       child: Scaffold(
@@ -222,8 +232,19 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ),
               Spacer(),
-              TextButton(onPressed: (){
+              TextButton(onPressed: () async {
                 int paymentMethod;
+                List<geo.Location> locations_destination = await geo.locationFromAddress( _addrController.text.trim());
+                latitude_destination = locations_destination[0].latitude.toDouble();
+                longitude_destination = locations_destination[0].longitude.toDouble();
+
+                List<geo.Location> locations_origin = await geo.locationFromAddress(widget.storeLocation);
+                latitude_origin = locations_origin[0].latitude.toDouble();
+                longitude_origin = locations_origin[0].longitude.toDouble();
+
+              final Distance distance = Distance();
+              final double deliveryDistance = distance.as(LengthUnit.Kilometer, LatLng(latitude_origin,longitude_origin) , LatLng(latitude_destination, longitude_destination));
+
                 if(dropdownValue == "카드결제") {
                   paymentMethod = 1;
                 } else if(dropdownValue == "현금결제") {
@@ -231,7 +252,10 @@ class _OrderScreenState extends State<OrderScreen> {
                 } else {
                   paymentMethod = 0;
                 }
-                newOrder(3.4, 3000, _addrController.text.trim(), _requestController.text.trim(), widget.storeId, paymentMethod, widget.foods, widget.price, '01011112222');
+
+                int deliveryFee = (deliveryDistance/0.5).toInt()* 1000;
+
+                newOrder(deliveryDistance, deliveryFee, _addrController.text.trim(), _requestController.text.trim(), widget.storeId, paymentMethod, widget.foods, widget.price, '01011112222');
                 Navigator.pop(context);
                 Navigator.pop(context);
               }, child: Text("주문하기")),
