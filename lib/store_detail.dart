@@ -52,8 +52,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
             };
             menus.add(tmp);
           }
-        } else {
-          print("메뉴 리스트 불러오기 실패");
         }
         setState(() {});
       }

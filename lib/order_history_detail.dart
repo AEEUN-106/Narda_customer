@@ -46,8 +46,6 @@ class _OrderHistoryDetailScreenState extends State<OrderHistoryDetailScreen> {
 
           duration = current.difference(orderTime);
           print("duration : $duration");
-        } else {
-          print("오더 디테일 불러오기 실패");
         }
       } else {
         print("오더 디테일 불러오기 실패2");

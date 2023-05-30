@@ -88,7 +88,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 context,
                 MaterialPageRoute(builder: (context) =>
                     StoreDetailScreen(storeId: stores[index].storeId,
-                      storeName: stores[index].storeName,)),
+                      storeName: stores[index].storeName, storeLocation: '',)),
               );
             },
             child: Container(

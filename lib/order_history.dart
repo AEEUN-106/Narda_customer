@@ -44,9 +44,6 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
             orders.add(Order.fromJson(responseList[i]));
           }
         }
-        else {
-          print("오더 리스트 불러오기 실패");
-        }
         setState(() {});
         return orders;
       }

@@ -12,7 +12,7 @@ class OrderScreen extends StatefulWidget {
       required this.storeName,
       required this.foods,
       required this.price,
-      required this.storeId})
+      required this.storeId, required String storeLocation})
       : super(key: key);
   final String storeName;
   final String storeId;
