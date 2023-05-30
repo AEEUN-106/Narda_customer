@@ -6,8 +6,10 @@ import 'package:http/http.dart' as http;
 import 'model/order.dart';
 import 'api/api.dart';
 
-Order? order;
+Order order =
+    Order(0, 0, "", "", "", 0, 0, "", "", "", "", 0, "", 0, "", "", "", "");
 Duration? duration;
+bool connect = true;
 
 class OrderHistoryDetailScreen extends StatefulWidget {
   const OrderHistoryDetailScreen(
@@ -74,195 +76,62 @@ class _OrderHistoryDetailScreenState extends State<OrderHistoryDetailScreen> {
     }
 
     return GestureDetector(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(45.0),
-          child: AppBar(
-            backgroundColor: Color(0xff4B60F6),
-            title: Text(
-              "주문내역",
-              style: const TextStyle(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 18,
+        child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(50.0),
+              child: AppBar(
+                shape: Border(
+                    bottom: BorderSide(
+                  color: Color(0xfff1f2f3),
+                  width: 2,
+                )),
+                title: Text("주문 내역",
+                    style: TextStyle(color: Colors.black, fontSize: 18)),
+                automaticallyImplyLeading: false,
+                centerTitle: true,
+                backgroundColor: Colors.white,
+                elevation: 0,
               ),
             ),
-            actions: [],
-            centerTitle: true,
-            elevation: 2,
-          ),
-        ),
-        body: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                child: Align(
-                  alignment: AlignmentDirectional(0, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        deliveryState,
-                        style: TextStyle(fontSize: 20, color: Colors.red),
-                      ),
-                      SizedBox(height: 15),
-                      Text("주문일시 : ${order?.orderTime}"),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text("주문번호 : ${order?.orderId}"),
-                      SizedBox(height: 5),
-                    ],
+            body: Container(
+              margin: EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    deliveryState,
+                    style: TextStyle(fontSize: 20, color: Colors.red),
                   ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                child: Align(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(order!.storeName, style: TextStyle(fontSize: 18)),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 5),
-                            Text(order!.orderInfo),
-                            SizedBox(height: 5),
-                            Text(order!.storePhoneNum.substring(0, 3) +
-                                '-' +
-                                order!.storePhoneNum.substring(3, 6) +
-                                '-' +
-                                order!.storePhoneNum.substring(6)),
-                            SizedBox(height: 5),
-                          ],
-                        ),
-                      ),
-                    ],
+                  SizedBox(height: 15),
+                  Text("주문일시 : ${order?.orderTime}"),
+                  SizedBox(
+                    height: 5,
                   ),
-                ),
+                  Text(
+                      "주문번호 : ${order?.orderId.hashCode.toRadixString(16).toUpperCase()}"),
+                  SizedBox(height: 15),
+                  Text(order!.storeName, style: TextStyle(fontSize: 22)),
+                  SizedBox(height: 15),
+                  Text(order!.orderInfo, style: TextStyle(fontSize: 18)),
+                  SizedBox(height: 15),
+                  Text(order!.storePhoneNum, style: TextStyle(fontSize: 18)),
+                  SizedBox(height: 20),
+                  Text("요청 사항", style: TextStyle(fontSize: 22)),
+                  SizedBox(height: 15),
+                  Text(order!.deliveryRequest, style: TextStyle(fontSize: 18)),
+                  SizedBox(height: 20),
+                  Text("결제 수단", style: TextStyle(fontSize: 22)),
+                  SizedBox(height: 15),
+                  Text(payment, style: TextStyle(fontSize: 18)),
+                  SizedBox(height: 20),
+                  Text("결제 금액", style: TextStyle(fontSize: 22)),
+                  SizedBox(height: 15),
+                  Text(order!.orderValue.toString()+"원",
+                      style: TextStyle(fontSize: 18)),
+                ],
               ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                child: Align(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text('배달정보', style: TextStyle(fontSize: 18)),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 5),
-                            Text(order!.deliveryLocation),
-                            SizedBox(height: 5),
-                            Text(order!.customerNum.substring(0, 3) +
-                                '-' +
-                                order!.customerNum.substring(3, 7) +
-                                '-' +
-                                order!.customerNum.substring(7)),
-                            SizedBox(height: 5),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                child: Align(
-                  child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Text('요청사항', style: TextStyle(fontSize: 18)),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 5),
-                              Text(order!.deliveryRequest),
-                              SizedBox(height: 5),
-                            ],
-                          ),
-                        ),
-                      ]),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                child: Align(
-                  alignment: AlignmentDirectional(0, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text('결제수단', style: TextStyle(fontSize: 18)),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 5),
-                            Text(payment),
-                            SizedBox(height: 5),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                child: Align(
-                  alignment: AlignmentDirectional(0, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text('결제금액', style: TextStyle(fontSize: 18)),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 5),
-                            Text(order!.orderValue.toString() + '원'),
-                            SizedBox(height: 5),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            )));
   }
 }

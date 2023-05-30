@@ -69,8 +69,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       // padding: const EdgeInsets.all(3),
       itemCount: menus.length,
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: ListTile(
+        return ListTile(
             leading: Container(
               width: 70,
               decoration: BoxDecoration(
@@ -114,7 +113,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
             onTap: () {
 
             },
-          ),
         );
       },
       separatorBuilder: (BuildContext context, int index) {
@@ -125,20 +123,19 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
     return GestureDetector(
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(45.0),
+            preferredSize: Size.fromHeight(50.0),
             child: AppBar(
-              backgroundColor: Color(0xff4B60F6),
-              title: Text(
-                widget.storeName,
-                style: const TextStyle(
-                  // fontFamily: 'Poppins',
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
-              ),
-              actions: [],
+              shape: Border(
+                  bottom: BorderSide(
+                    color: Color(0xfff1f2f3),
+                    width: 2,
+                  )),
+              title: Text(widget.storeName,
+                  style: TextStyle(color: Colors.black, fontSize: 18)),
+              automaticallyImplyLeading: false,
               centerTitle: true,
-              elevation: 2,
+              backgroundColor: Colors.white,
+              elevation: 0,
             ),
           ),
           body: Column(children: <Widget>[
@@ -146,24 +143,20 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
               height: 10,
             ),
             Expanded(child: _listView),
-            TextButton(onPressed: (){
+            FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: Color(0xff475dfe)
+                ),
+                onPressed: (){
               String foodStr = "";
               num totalPrice = 0;
 
               menus.forEach((element) {
                 if(element['num'] > 0){
                   foodStr += '${element['menuName']} ${element['num']}개, ';
-
                   totalPrice += element['num'] * element['menuPrice'];
-
-                  print(element['num'].runtimeType);
-                  print(element['menuPrice'].runtimeType);
-
-
                 }
               });
-
-              print(totalPrice);
 
               foodStr = foodStr.substring(0, foodStr.length-2);
 
@@ -171,7 +164,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                 context,
                 MaterialPageRoute(builder: (context) =>  OrderScreen(storeName: widget.storeName, storeId: widget.storeId, foods: foodStr, price: totalPrice as int,)),
               );
-            }, child: Text("주문하기")),
+            }, child: Text("주문하기", style: TextStyle(fontSize: 20),)),
+            SizedBox(height: 10,)
           ]),
         )
     );

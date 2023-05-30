@@ -60,8 +60,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
       // padding: const EdgeInsets.all(3),
       itemCount: orders.length,
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: ListTile(
+        return ListTile(
             leading: Container(
               width: 70,
               decoration: BoxDecoration(
@@ -75,6 +74,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
             title: Text(
                 orders[index].storeName),
             subtitle: Text(orders[index].orderValue.toString() + '원'),
+            trailing: orders[index].state!=4?Text("배달 중", style: TextStyle(color: Colors.red),):Text("배달 완료"),
             // isThreeLine: true,
             onTap: () {
               Navigator.push(
@@ -82,7 +82,6 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                 MaterialPageRoute(builder: (context) =>  OrderHistoryDetailScreen(orderId: orders[index].orderId, storeId: orders[index].storeId)),
               );
             },
-          ),
         );
       },
       separatorBuilder: (BuildContext context, int index) {
@@ -93,20 +92,19 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
     return GestureDetector(
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(45.0),
+            preferredSize: Size.fromHeight(50.0),
             child: AppBar(
-              backgroundColor: Color(0xff4B60F6),
-              title: Text(
-                "주문내역",
-                style: const TextStyle(
-                  // fontFamily: 'Poppins',
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
-              ),
-              actions: [],
+              shape: Border(
+                  bottom: BorderSide(
+                    color: Color(0xfff1f2f3),
+                    width: 2,
+                  )),
+              title: Text('주문 내역',
+                  style: TextStyle(color: Colors.black, fontSize: 18)),
+              automaticallyImplyLeading: false,
               centerTitle: true,
-              elevation: 2,
+              backgroundColor: Colors.white,
+              elevation: 0,
             ),
           ),
           body: Column(children: <Widget>[

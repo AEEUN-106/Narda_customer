@@ -74,80 +74,87 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var _gridView = GridView.builder(
+      itemCount: stores!.length, //item 개수
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3, //1 개의 행에 보여줄 item 개수
+        childAspectRatio: 9/10, //item 의 가로 1, 세로 2 의 비율
+      ),
+      itemBuilder: (BuildContext context, int index) {
+        //item 의 반목문 항목 형성
+        return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>
+                    StoreDetailScreen(storeId: stores[index].storeId,
+                      storeName: stores[index].storeName,)),
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 100, height: 100,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          image: DecorationImage(
+                            image: AssetImage('asset/images/${stores[index].storeId}.jpeg'),
+                            fit: BoxFit.fill,
+                          )
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5,),
+                  Text(stores[index].storeName),
+                  // Image.asset(
+                  //   stores![index].storeName,
+                  // ),
+                ],
+              ),
+            ));
+      },
+    );
+
     return GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
         child: Scaffold(
           key: scaffoldKey,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(45.0),
-            child: AppBar(
-              centerTitle: true,
-              backgroundColor: Color(0xff4B60F6),
-
-              automaticallyImplyLeading: false,
-              title: const Text(
-                'NARDA',
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(50.0),
+              child: AppBar(
+                shape: Border(
+                    bottom: BorderSide(
+                      color: Color(0xfff1f2f3),
+                      width: 2,
+                    )),
+                title: Text('NARDA',
+                    style: TextStyle(color: Colors.black, fontSize: 18)),
+                automaticallyImplyLeading: false,
+                centerTitle: true,
+                backgroundColor: Colors.white,
+                elevation: 0,
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.shopping_cart, color: Colors.black,),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>
+                            OrderHistoryScreen(customerNum: '01011112222')),
+                      );
+                    },)
+                ],
               ),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.shopping_cart),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>
-                          OrderHistoryScreen(customerNum: '01011112222')),
-                    );
-                  },)
-              ],
-              elevation: 1.0,
             ),
-          ),
 
-        body: GridView.builder(
-          itemCount: stores!.length, //item 개수
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, //1 개의 행에 보여줄 item 개수
-            childAspectRatio: 4 / 5, //item 의 가로 1, 세로 2 의 비율
-            mainAxisSpacing: 10, //수평 Padding
-            crossAxisSpacing: 10, //수직 Padding
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            //item 의 반목문 항목 형성
-            return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>
-                        StoreDetailScreen(storeId: stores[index].storeId,
-                          storeName: stores[index].storeName,)),
-                  );
-                },
-                child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  width: 100,
-                  height: 100,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: AssetImage('asset/images/${stores[index].storeId}.jpeg'),
-                              fit: BoxFit.fill,
-                            )
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(stores[index].storeName),
-                      // Image.asset(
-                      //   stores![index].storeName,
-                      // ),
-                    ],
-                  ),
-                ));
-          },
-        )));
+        body: Container(
+          margin: EdgeInsets.only(top: 10),
+          child: _gridView,
+
+        ))
+    );
   }
 }
