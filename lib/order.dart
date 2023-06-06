@@ -30,6 +30,7 @@ class _OrderScreenState extends State<OrderScreen> {
   final TextEditingController _addrController =
       TextEditingController(); //입력되는 값을 제어
   final TextEditingController _requestController = TextEditingController();
+  final TextEditingController _addrDetailController = TextEditingController();
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _OrderScreenState extends State<OrderScreen> {
       double deliveryDistance,
       int deliveryFee,
       String deliveryLocation,
+      String deliveryLocationDetail,
       String deliveryRequest,
       String storeId,
       int payment,
@@ -55,6 +57,7 @@ class _OrderScreenState extends State<OrderScreen> {
         'deliveryDistance': deliveryDistance.toString(),
         'deliveryFee': deliveryFee.toString(),
         'deliveryLocation': deliveryLocation,
+            'deliveryLocationDetail' : deliveryLocationDetail,
         'deliveryRequest': deliveryRequest,
         'storeId': storeId.toString(),
         'payment': payment.toString(),
@@ -128,6 +131,13 @@ class _OrderScreenState extends State<OrderScreen> {
                           hintText: '[배달 주소를 적어주세요]',
                         ),
                       ),
+                      TextFormField(
+                        controller: _addrDetailController,
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          hintText: '[배달 상세 주소를 적어주세요]',
+                        ),
+                      ),
                       SizedBox(height: 15),
                       Text('010-1111-2222', style: TextStyle(fontSize: 18),),
                       SizedBox(height: 20),
@@ -181,6 +191,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         3.4,
                         3000,
                         _addrController.text.trim(),
+                        _addrDetailController.text.trim(),
                         _requestController.text.trim(),
                         widget.storeId,
                         paymentMethod,

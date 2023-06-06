@@ -7,6 +7,7 @@ class Order{
   double deliveryDistance;
   int deliveryFee;
   String deliveryLocation;
+  String deliveryLocationDetail;
   String deliveryRequest;
   String? riderId;
   String storeId;
@@ -20,7 +21,7 @@ class Order{
   //storeId 중복으로 출력 -> 중복 제거 필요
 
   Order(this.orderId, this.state, this.orderTime, this.pickupTime, this.deliveryTime,
-      this.deliveryDistance, this.deliveryFee, this.deliveryLocation, this.deliveryRequest,
+      this.deliveryDistance, this.deliveryFee, this.deliveryLocation, this.deliveryLocationDetail, this.deliveryRequest,
       this.riderId, this.storeId, this.payment, this.orderInfo, this.orderValue, this.customerNum, this.storeName, this.storePhoneNum, this.storeLocation);
 
   factory Order.fromJson(Map<String,dynamic> json) => Order(
@@ -32,6 +33,7 @@ class Order{
     double.parse(json['deliveryDistance']),
     int.parse(json['deliveryFee']),
     json['deliveryLocation'] as String,
+    json['deliveryLocationDetail'] as String,
     json['deliveryRequest'] as String,
     json['riderId'] as String?,
     json['storeId'] as String,
@@ -54,6 +56,7 @@ class Order{
     'deliveryDistance' : deliveryDistance.toString(),
     'deliveryFee' : deliveryFee.toString(),
     'deliveryLocation' : deliveryLocation,
+    'deliveryLocationDetail' : deliveryLocationDetail.toString(),
     'deliveryRequest' : deliveryRequest,
     'riderId' : riderId,
     'storeId' : storeId,

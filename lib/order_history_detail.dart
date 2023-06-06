@@ -7,7 +7,7 @@ import 'model/order.dart';
 import 'api/api.dart';
 
 Order order =
-    Order(0, 0, "", "", "", 0, 0, "", "", "", "", 0, "", 0, "", "", "", "");
+    Order(0, 0, "", "", "", 0, 0, "", "", "", "", "", 0, "", 0, "", "", "", "");
 Duration? duration;
 bool connect = true;
 
