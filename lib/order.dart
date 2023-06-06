@@ -117,17 +117,23 @@ class _OrderScreenState extends State<OrderScreen> {
                         '주문 내역',
                         style: TextStyle(fontSize: 22),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 10),
                       Text(
                         widget.foods,
                         style: TextStyle(fontSize: 18),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 15),
+                      Container(
+                        color: Colors.grey[300],
+                        height: 2,
+                      ),
+                      SizedBox(height: 15),
                       Text('배달 주소', style: TextStyle(fontSize: 22)),
                       TextFormField(
                         controller: _addrController,
                         obscureText: false,
                         decoration: const InputDecoration(
+                          border: InputBorder.none,
                           hintText: '[배달 주소를 적어주세요]',
                         ),
                       ),
@@ -135,23 +141,36 @@ class _OrderScreenState extends State<OrderScreen> {
                         controller: _addrDetailController,
                         obscureText: false,
                         decoration: const InputDecoration(
+                          border: InputBorder.none,
                           hintText: '[배달 상세 주소를 적어주세요]',
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 10),
                       Text('010-1111-2222', style: TextStyle(fontSize: 18),),
-                      SizedBox(height: 20),
+                      SizedBox(height: 15),
+                      Container(
+                        color: Colors.grey[300],
+                        height: 2,
+                      ),
+                      SizedBox(height: 15),
                       Text('요청 사항', style: TextStyle(fontSize: 20)),
                       TextFormField(
                         controller: _requestController,
                         obscureText: false,
                         decoration: const InputDecoration(
+                          border: InputBorder.none,
                           hintText: '[요청 사항을 적어주세요.]',
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
+                      Container(
+                        color: Colors.grey[300],
+                        height: 2,
+                      ),
+                      SizedBox(height: 15),
                       Text('결제 수단', style: TextStyle(fontSize: 22)),
                       DropdownButton(
+                        underline: SizedBox.shrink(),
                         value: dropdownValue,
                         items: list.map(
                               (value) {
@@ -166,10 +185,15 @@ class _OrderScreenState extends State<OrderScreen> {
                           setState(() {});
                         },
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 15),
+                      Container(
+                        color: Colors.grey[300],
+                        height: 2,
+                      ),
+                      SizedBox(height: 15),
 
                       Text('결제 금액', style: TextStyle(fontSize: 22)),
-                      SizedBox(height: 15),
+                      SizedBox(height: 10),
                       Text(
                         widget.price.toString() + '원', style: TextStyle(fontSize: 18),
                       ),
