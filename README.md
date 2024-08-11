@@ -1,16 +1,20 @@
-# narda_customer
+![그림1](https://github.com/user-attachments/assets/66bd6da3-bd71-49d9-a0e1-c39be0a1b912)
 
-A new Flutter project.
+> 2023.03 ~ 2023.11
+ 
+ 
+Sumary
+---
+  - 라이더 배달 기사 특화 스마트 AR헬멧과 이를 이용한 안전에 초점을 맞춘 라이더 어플리케이션
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Features
+---
+  - 스마트 헬멧에서 AR을 통한 네비게이션 길 안내
+  - 음성 인식을 통한 오더 제어
+  - 어플리케이션과 스마트 헬멧 간 통신
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+🛠 Skills
+---
+Dart, Android, iOS, PHP, MySQL
